@@ -28,7 +28,8 @@ X_train, y_train = [], []
 
 # Targets
 asl_dict = {
-    'NO ': 0, 'YES ': 1, 'HELLO ': 2, 'SORRY ': 3, "THANK_YOU ": 4
+    'NO ': 0, 'YES ': 1, 'HELLO/GOOD_BYE ': 2, 'SORRY ': 3, "THANK_YOU ": 4,
+    'HOW_ARE_YOU ': 5, 'I_AGREE ': 6
 }
 
 def apply_augmentations(keypoints):
@@ -112,6 +113,8 @@ NO = f"{DIRECTORY}/NO"
 HELLO = f"{DIRECTORY}/HELLO"
 SORRY = f"{DIRECTORY}/SORRY"
 THANK_YOU = f"{DIRECTORY}/THANK_YOU"
+HOW_ARE_YOU = f"{DIRECTORY}/HOW_ARE_YOU"
+I_AGREE = f"{DIRECTORY}/I_AGREE"
 
 # List of files
 yes_files = os.listdir(YES)
@@ -119,6 +122,8 @@ no_files = os.listdir(NO)
 hello_files = os.listdir(HELLO)
 sorry_files = os.listdir(SORRY)
 thank_you_files = os.listdir(THANK_YOU)
+how_are_you_files = os.listdir(HOW_ARE_YOU)
+i_agree_files = os.listdir(I_AGREE)
 
 # Initialize mediapipe network
 mp_hands = mp.solutions.hands
@@ -177,10 +182,12 @@ all_data.extend(submit_videos(no_files, NO, target_idx=0, repeats=3))
 all_data.extend(submit_videos(hello_files, HELLO, target_idx=2, repeats=4))
 all_data.extend(submit_videos(sorry_files, SORRY, target_idx=3, repeats=4))
 all_data.extend(submit_videos(thank_you_files, THANK_YOU, target_idx=4, repeats=4))
+all_data.extend(submit_videos(how_are_you_files, HOW_ARE_YOU, target_idx=5, repeats=4))
+all_data.extend(submit_videos(i_agree_files, I_AGREE, target_idx=6, repeats=4))
 
 # Unpack into X_train and y_train
-X_train = [x for x, y in all_data]
-y_train = [y for x, y in all_data]
+X_train = [seq for x, y in all_data for seq in x]  # flatten sequences
+y_train = [y for x, y in all_data for _ in x]      # repeat labels
 # Split data into test and train
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
 

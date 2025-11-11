@@ -52,10 +52,9 @@ class Translator(Model):
         
         # BatchNorm and Dropout applied after attention
         self.bn = BatchNormalization()  # normalize final vector
-        self.dropout = Dropout(0.3)
         
         # Final output
-        self.out = Dense(5, activation='softmax')
+        self.out = Dense(7, activation='softmax')
 
     def call(self, x, training=False):
         # Ensure x is rank-3: (batch, timesteps, features)
@@ -68,7 +67,6 @@ class Translator(Model):
         x = self.lstm2(x)
         x = self.attention(x)       # (batch, features)
         x = self.bn(x, training=training)
-        x = self.dropout(x, training=training)
         x = self.out(x)
         return x
     

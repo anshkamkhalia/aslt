@@ -21,7 +21,8 @@ y_train = np.load("mediapipe_keypoints/y_train.npy")
 X_test = np.load("mediapipe_keypoints/X_test.npy")
 y_test = np.load("mediapipe_keypoints/y_test.npy")
 asl_dict = {
-    'NO ': 0, 'YES ': 1, 'HELLO ': 2, 'SORRY ': 3, "THANK_YOU ": 4
+    'NO ': 0, 'YES ': 1, 'HELLO/GOOD_BYE ': 2, 'SORRY ': 3, "THANK_YOU ": 4,
+    'HOW_ARE_YOU ': 5, 'I_AGREE ': 6
 }
 # asl_dict = {
 #     'R': 0,  'U': 1,  'I': 2,  'N': 3,  'G': 4,
@@ -31,6 +32,11 @@ asl_dict = {
 #     'Q': 20, 'X': 21, 'E': 22, 'B': 23, 'K': 24,
 #     'L': 25, 'Y': 26, 'P': 27, 'W': 28, 'YES': 29, 'NO': 30
 # }
+# Ensure shape: (num_samples, timesteps, features)
+if len(X_train.shape) == 2:
+    X_train = np.expand_dims(X_train, axis=1)  # (num_samples, 1, 63)
+if len(X_test.shape) == 2:
+    X_test = np.expand_dims(X_test, axis=1)   # (num_samples, 1, 63)
 
 print(X_train.shape)
 print(X_test.shape)

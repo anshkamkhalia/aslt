@@ -25,12 +25,10 @@ hands = mp_hands.Hands(
 )
 
 # ASL mapping
+
 asl_dict = {
-    'NO ': 0, 
-    'YES ': 1, 
-    'HELLO ': 2, 
-    'SORRY ': 3, 
-    "HOW_ARE_YOU ": 4
+    'NO ': 0, 'YES ': 1, 'HELLO/GOOD_BYE ': 2, 'SORRY ': 3, "THANK_YOU ": 4,
+    'HOW_ARE_YOU ': 5, 'I_AGREE ': 6
 }
 idx_to_letter = {v: k for k, v in asl_dict.items()}
 
