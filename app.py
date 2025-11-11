@@ -16,7 +16,7 @@ mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 asl_dict = {
-    'NO ': 0, 'YES ': 1, 'HELLO ': 2, 'SORRY ': 3, "HOW_ARE_YOU ": 4
+    'NO ': 0, 'YES ': 1, 'HELLO ': 2, 'SORRY ': 3, "THANK_YOU ": 4
 }
 idx_to_letter = {v: k for k, v in asl_dict.items()}
 
