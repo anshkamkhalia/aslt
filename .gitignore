@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment files
+.env
+venv/
+.envrc
+
+# Virtual environment folders
+.venv/
+env/
+ENV/
+
+# macOS and IDE stuff
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Model files / large data
+*.h5
+*.pkl
+*.json
+*.pt
+*.npy
+
+# Cache
+*.cache
+*.tmp
+.cache/
+
+# Render build artifacts
+build/
+dist/
+
+archive/
+wlasl/
