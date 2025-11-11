@@ -2,7 +2,7 @@ import cv2 as cv
 import os
 import time
 
-GESTURE = "THANK_YOU"
+GESTURE = "HOW_ARE_YOU"
 # change to "NO", "HELLO", etc.
 SAVE_DIR = f"data/{GESTURE}"
 FPS = 30
