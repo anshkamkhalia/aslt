@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/" method="post">
+        <button tpye="submit">Record</button>
+    </form>
+
+    <h1>{{ result }}</h1>
+
+    <video id="webcam" width="640" height="480" autoplay></video>
+    <script>
+    import * as tf from '@tensorflow/tfjs';
+
+    async function loadModel() {
+        const model = await tf.loadLayersModel('tfjs_model/model.json');
+        console.log('Model loaded successfully!');
+        return model;    
+}
+
+    const video = document.getElementById('webcam');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        video.srcObject = stream;
+    })
+    .catch(err => console.error(err));
+
+    // Capture frames periodically and send to server
+    const canvas = document.createElement('canvas');
+    canvas.width = 640;
+    canvas.height = 480;
+    const ctx = canvas.getContext('2d');
+
+    setInterval(() => {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/jpeg');
+
+        fetch('/predict', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: dataUrl })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.prediction);
+        });
+    }, 200); // every 200ms
+    </script>
+</body>
+</html>
