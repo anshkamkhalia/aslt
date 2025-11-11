@@ -24,7 +24,7 @@ idx_to_letter = {v: k for k, v in asl_dict.items()}
 sequence_buffer = deque(maxlen=60)
 pred_buffer = deque(maxlen=30)
 
-@app.route("/predict", methods=["POST"])
+@app.route("/", methods=["POST"])
 def predict_sign():
     try:
         data = request.json
