@@ -33,7 +33,7 @@ hands = mp_hands.Hands(
 
 asl_dict = {
     'NO ': 0, 'YES ': 1, 'HELLO/GOOD_BYE ': 2, 'SORRY ': 3, "THANK_YOU ": 4,
-    'HOW_ARE_YOU ': 5, 'I_AGREE ': 6
+    'HOW_ARE_YOU ': 5, 'I_AGREE ': 6, 'I_DISAGREE ': 7
 }
 idx_to_letter = {v: k for k, v in asl_dict.items()}
 
@@ -99,19 +99,19 @@ while True:
                 else:
                     pass
 
-                # Commit only if stable
-                most_common, count = Counter(pred_buffer).most_common(1)[0]
-                if count >= frames_to_hold:
-                    if chars and chars[-1] == most_common:
-                        pass
-                    else:
-                        if most_common == "space":
-                            chars.append(" ")
-                        elif most_common == "del":
-                            if chars:
-                                chars.pop()
+                if len(pred_buffer) > 0:
+                    most_common, count = Counter(pred_buffer).most_common(1)[0]
+                    if count >= frames_to_hold:
+                        if chars and chars[-1] == most_common:
+                            pass
                         else:
-                            chars.append(most_common)
+                            if most_common == "space":
+                                chars.append(" ")
+                            elif most_common == "del":
+                                if chars:
+                                    chars.pop()
+                            else:
+                                chars.append(most_common)
                         pred_buffer.clear()
 
             # Display predicted letter on screen

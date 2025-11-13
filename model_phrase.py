@@ -54,7 +54,7 @@ class Translator(Model):
         self.bn = BatchNormalization()  # normalize final vector
         
         # Final output
-        self.out = Dense(7, activation='softmax')
+        self.out = Dense(8, activation='softmax')
 
     def call(self, x, training=False):
         # Ensure x is rank-3: (batch, timesteps, features)

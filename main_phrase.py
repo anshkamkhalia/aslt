@@ -22,7 +22,7 @@ X_test = np.load("mediapipe_keypoints/X_test.npy")
 y_test = np.load("mediapipe_keypoints/y_test.npy")
 asl_dict = {
     'NO ': 0, 'YES ': 1, 'HELLO/GOOD_BYE ': 2, 'SORRY ': 3, "THANK_YOU ": 4,
-    'HOW_ARE_YOU ': 5, 'I_AGREE ': 6
+    'HOW_ARE_YOU ': 5, 'I_AGREE ': 6, 'I_DISAGREE ': 7
 }
 # asl_dict = {
 #     'R': 0,  'U': 1,  'I': 2,  'N': 3,  'G': 4,
